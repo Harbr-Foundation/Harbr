@@ -4,7 +4,19 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+diesel = { version = "2.2.4", features = ["mysql","sqlite"] }
+chrono = { version = "0.4.38", features = ["serde"] }
 clap = { version = "4.5.20", features = ["derive"] }
+serde = { version = "1.0.214", features = ["derive"] }
 serde_json = "1.0.132"
+sqlx = { version = "0.8.2", features = ["runtime-tokio", "macros", "chrono", "uuid", "json"] }
+thiserror = "2.0.1"
 tokio = {version = "1.41.1", features = ["full"]}
+uuid = {version = "1.11.0", features = ["serde"]}
+validator = "0.19.0"
 warp = "0.3.7"
+
+[features]
+default = ["sqlite"]
+sqlite = ["sqlx/sqlite"]
+mysql = ["sqlx/mysql"]
