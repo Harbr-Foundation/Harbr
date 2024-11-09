@@ -48,6 +48,7 @@ pub async fn run(config: Option<ServerConfig>) {
         .and(warp::fs::file("repo.json"))
         // Add CORS headers
         .with(cors);
+    
     println!("running main instance on localhost:3030");
 
     // // Register the routes
