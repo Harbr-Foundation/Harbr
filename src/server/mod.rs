@@ -54,5 +54,5 @@ pub async fn run(config: Option<ServerConfig>) {
     // let routes = routes::register()
     //     .recover(error::handle_rejection);
 
-    warp::serve(json_route).run(([127, 0, 0, 1], 3030)).await;
+    warp::serve(json_route).run(([0, 0, 0, 0], 3030)).await;
 }
