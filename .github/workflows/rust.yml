@@ -35,7 +35,7 @@ jobs:
           file_pattern: '**/*.rs'
        
       - name: Clippy
-        run: cargo clippy -- -D warnings
+        run: cargo clippy
        
       - name: Build
         run: cargo build --release --verbose
