@@ -1,14 +1,11 @@
 name: Rust CI
-
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
 env:
   CARGO_TERM_COLOR: always
-
 jobs:
   check:
     name: Check
@@ -17,29 +14,72 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
-      
+        with:
+          fetch-depth: 2
+     
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
         with:
           components: rustfmt, clippy
-          
+         
       - name: Rust Cache
         uses: Swatinem/rust-cache@v2
-        
+       
       - name: Format code
         run: cargo fmt --all
-        
+       
       - name: Commit formatting changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: "style: format code with rustfmt"
+          commit_message: ${{ github.event.head_commit.message }}
           file_pattern: '**/*.rs'
-        
+       
       - name: Clippy
         run: cargo clippy -- -D warnings
-        
+       
       - name: Build
-        run: cargo build --verbose
-        
+        run: cargo build --release --verbose
+       
       - name: Run tests
         run: cargo test --verbose
+      
+      - name: Get binary name
+        id: binary
+        run: |
+          BINARY_NAME=$(cargo metadata --format-version 1 | jq -r '.packages[0].targets[] | select(.kind[] | contains("bin")) | .name')
+          echo "name=$BINARY_NAME" >> "$GITHUB_OUTPUT"
+       
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.binary.outputs.name }}-linux
+          path: target/release/${{ steps.binary.outputs.name }}
+      
+      - name: Check version change
+        id: version
+        run: |
+          git fetch
+          OLD_VERSION=$(git show HEAD^:Cargo.toml | grep -m 1 '^version = ' | cut -d '"' -f 2)
+          NEW_VERSION=$(grep -m 1 '^version = ' Cargo.toml | cut -d '"' -f 2)
+          if [ "$OLD_VERSION" != "$NEW_VERSION" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
+          fi
+       
+      - name: Push changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        if: steps.version.outputs.changed != 'true'
+        with:
+          commit_message: ${{ github.event.head_commit.message }}
+          file_pattern: '**/*.rs'
+      
+      - name: Create Release
+        if: steps.version.outputs.changed == 'true'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          name: Release v${{ steps.version.outputs.version }}
+          files: target/release/${{ steps.binary.outputs.name }}
+          generate_release_notes: true
+          draft: false
+          prerelease: false
