@@ -1,0 +1,26 @@
+[
+  {
+    "icon": "Plus",
+    "label": "New Repository",
+    "href": "/app/new",
+    "description": "Create a new repository"
+  },
+  {
+    "icon": "BookOpen",
+    "label": "Documentation",
+    "href": "/docs",
+    "description": "View guides and API docs"
+  },
+  {
+    "icon": "Users",
+    "label": "Teams",
+    "href": "/app/teams",
+    "description": "Manage your teams"
+  },
+  {
+    "icon": "Package",
+    "label": "Packages",
+    "href": "/app/packages",
+    "description": "View published packages"
+  }
+]

@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-diesel = { version = "2.2.4", features = ["mysql","sqlite"] }
+diesel = { version = "2.2.4", features = ["sqlite"] }
 chrono = { version = "0.4.38", features = ["serde"] }
 clap = { version = "4.5.20", features = ["derive"] }
 serde = { version = "1.0.214", features = ["derive"] }
@@ -19,4 +19,3 @@ warp = "0.3.7"
 [features]
 default = ["sqlite"]
 sqlite = ["sqlx/sqlite"]
-mysql = ["sqlx/mysql"]

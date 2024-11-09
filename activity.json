@@ -1,0 +1,28 @@
+[
+    {
+      "type": "pr-merged",
+      "repo": "harbr/core",
+      "title": "Add new caching layer for better performance",
+      "number": "#234",
+      "time": "30 minutes ago",
+      "icon": "GitPullRequest",
+      "iconColor": "text-purple-400"
+    },
+    {
+      "type": "issue-opened",
+      "repo": "harbr/ui",
+      "title": "Dialog component accessibility improvements",
+      "number": "#192",
+      "time": "2 hours ago",
+      "icon": "MessageSquare",
+      "iconColor": "text-emerald-400"
+    },
+    {
+      "type": "repo-starred",
+      "repo": "harbr/docs",
+      "title": "Repository starred",
+      "time": "4 hours ago",
+      "icon": "Star",
+      "iconColor": "text-yellow-400"
+    }
+  ]
