@@ -15,3 +15,7 @@ struct ProgrammingLanguage {
     value: String,
     color: String,
 }
+
+struct User {
+    
+}
