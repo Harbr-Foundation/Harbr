@@ -9,7 +9,7 @@ use warp::Filter;
 
 pub fn init() {
     let config: Option<ServerConfig> = None;
-    let file = match std::fs::read_to_string("./harbor.config.json") {
+    let file = match std::fs::read_to_string("./harbr.config.json") {
         Ok(s) => {
             println!("read server config");
             println!("{s}");
@@ -28,7 +28,7 @@ pub fn init() {
             return;
         }
     };
-    println!("Attempting to run with 'harbor.config.json'");
+    println!("Attempting to run with 'harbr.config.json'");
     run(config);
 }
 
