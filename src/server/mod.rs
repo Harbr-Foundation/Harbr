@@ -9,7 +9,7 @@ use warp::Filter;
 
 pub fn init() {
     let config: Option<ServerConfig> = None;
-    let file = match std::fs::read_to_string("./harbor.config.json") {
+    let file = match std::fs::read_to_string("./harbr.config.json") {
         Ok(s) => {
             println!("read server config");
             println!("{s}");
@@ -28,7 +28,7 @@ pub fn init() {
             return;
         }
     };
-    println!("Attempting to run with 'harbor.config.json'");
+    println!("Attempting to run with 'harbr.config.json'");
     run(config);
 }
 
@@ -48,11 +48,11 @@ pub async fn run(config: Option<ServerConfig>) {
         .and(warp::fs::file("repo.json"))
         // Add CORS headers
         .with(cors);
-    println!("running main instance on localhost:3030");
+    println!("running main instance on 0.0.0.0:3030");
 
     // // Register the routes
     // let routes = routes::register()
     //     .recover(error::handle_rejection);
 
-    warp::serve(json_route).run(([127, 0, 0, 1], 3030)).await;
+    warp::serve(json_route).run(([0, 0, 0, 0], 3030)).await;
 }
