@@ -13,6 +13,8 @@ jobs:
   check:
     name: Check
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       
@@ -24,8 +26,14 @@ jobs:
       - name: Rust Cache
         uses: Swatinem/rust-cache@v2
         
-      - name: Check formatting
-        run: cargo fmt --all -- --check
+      - name: Format code
+        run: cargo fmt --all
+        
+      - name: Commit formatting changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "style: format code with rustfmt"
+          file_pattern: '**/*.rs'
         
       - name: Clippy
         run: cargo clippy -- -D warnings
