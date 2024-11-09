@@ -1,4 +1,3 @@
-use std::path::PathBuf;
 
 use clap::{CommandFactory, Parser, Subcommand};
 
@@ -24,7 +23,7 @@ enum Commands {
     },
 }
 
-pub fn init() {
+pub fn run() {
     let cli = Cli::parse();
 
     match &cli.command {

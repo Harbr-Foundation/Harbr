@@ -1,4 +1,4 @@
-use cli::init;
+
 
 pub mod cli;
 pub mod server;
@@ -6,5 +6,5 @@ pub mod server;
 
 
 fn main() {
-    init();
+    cli::run();
 }
