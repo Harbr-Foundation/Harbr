@@ -23,7 +23,7 @@ pub fn init() {
                 pool_size: Some(0),
             };
             let config_file = serde_json::to_string_pretty(&default_config);
-            let _ = std::fs::write("./harbor.config.json", config_file.unwrap());
+            let _ = std::fs::write("./harbr.config.json", config_file.unwrap());
             run(Some(default_config));
             return;
         }
