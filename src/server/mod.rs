@@ -16,6 +16,7 @@ pub fn init() {
             s
         }
         Err(e) => {
+            println!("could not read server config");
             let default_config: ServerConfig = ServerConfig {
                 fqdn: Some("".to_string()),
                 main_port: Some(Port::default()),
@@ -23,10 +24,11 @@ pub fn init() {
             };
             let config_file = serde_json::to_string_pretty(&default_config);
             let _ = std::fs::write("./harbor.config.json", config_file.unwrap());
-            //let read_config = std::fs::read_to_string(Path::new("./harbor.config.json")).unwrap();
+            run(Some(default_config));
             return;
         }
     };
+    println!("Attempting to run with 'harbor.config.json'");
     run(config);
 }
 
