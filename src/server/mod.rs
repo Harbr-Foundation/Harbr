@@ -1,11 +1,7 @@
 pub mod config;
-use std::{
-    fs::File,
-    path::{self, Path},
-};
 
 use config::{Port, ServerConfig};
-use warp::{filters::path::path, reply::Response, Filter};
+use warp::Filter;
 
 // mod routes;
 // pub mod error;
