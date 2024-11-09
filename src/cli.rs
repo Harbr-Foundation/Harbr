@@ -1,8 +1,5 @@
 use clap::{CommandFactory, Parser, Subcommand};
 
-
-
-
 use crate::server;
 
 #[derive(Parser)]
