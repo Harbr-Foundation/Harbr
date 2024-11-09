@@ -1,4 +1,3 @@
-
 struct Repository {
     name: String,
     description: Option<String>,
@@ -7,13 +6,12 @@ struct Repository {
     forks: u64,
     main_language: String,
     last_update: chrono::Utc,
-    topics: Vec<String>
+    topics: Vec<String>,
 }
-
 
 type LanguageList = Vec<ProgrammingLanguage>;
 struct ProgrammingLanguage {
     name: String,
     value: String,
-    color: String
+    color: String,
 }
