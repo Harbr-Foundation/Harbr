@@ -1,11 +1,15 @@
 use warp::{Filter, Reply};
 use super::super::db::Db;
 
+
 pub mod handlers;
 pub mod models;
 
+
+
 pub fn routes() -> impl Filter<Extract = impl Reply, Error = warp::Rejection> + Clone {
     let repos = warp::path("repos");
+    let repo = Arc::new(); 
     
     // GET /api/repos
     let list = repos
@@ -13,7 +17,7 @@ pub fn routes() -> impl Filter<Extract = impl Reply, Error = warp::Rejection> + 
         .and(warp::query())
         .and(with_db())
         .and_then(handlers::list);
-
+    
     // POST /api/repos
     let create = repos
         .and(warp::post())
